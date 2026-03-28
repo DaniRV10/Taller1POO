@@ -7,10 +7,14 @@ import java.util.Scanner;
 public class Main {
 	
 //Arreglos
+
+
 static String[] usuarios = new String[10];
 static String[] contraseñas = new String[10];
 
 static int contadorUsuarios = 0;
+static String usuarioActual = "";
+
 static Scanner s = new Scanner(System.in);
 
 
@@ -71,15 +75,16 @@ static Scanner s = new Scanner(System.in);
 	
 	
 	private static void menuAnalisis() {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 
 
-
+// MENU USUARIOS
 	private static void menuUsuarios() {
+		
+		//Validacion
 		boolean encontrado = false;
 				do {
 					
@@ -90,6 +95,7 @@ static Scanner s = new Scanner(System.in);
 					
 					for (int i = 0; i < contadorUsuarios; i++) {
 						if (usuarios[i].equals(usuario) && contraseñas[i].equals(contraseña)) {
+							usuarioActual = usuarios[i];
 							encontrado = true;
 							break;
 						}
@@ -104,8 +110,84 @@ static Scanner s = new Scanner(System.in);
 						System.out.println("Credenciales incorrectas.");
 					}
 				}while(encontrado == false);
+				
+				//Opciones usuario
+				int opcion = 0;
+				while (opcion !=5) {
+					System.out.println();
+					System.out.printf("Bienvenido %s!",usuarioActual);
+					System.out.println();
+					System.out.println("Que deseas realizar?");
+					System.out.println("1) Registrar actividad.");
+					System.out.println("2) Modificar actividad.");
+					System.out.println("3) Eliminar actividad.");
+					System.out.println("4) Cambiar contraseña.");
+					System.out.println("5) Salir.");
+					System.out.print("> ");
+					opcion = s.nextInt();
+					
+					switch (opcion) {
+					case 1:
+						registrarActividad();
+						break;
+					case 2:
+						modificarActividad();
+						break;
+					case 3:
+						eliminarActividad();
+						break;
+					case 4: 
+						cambiarContraseña();
+						break;
+					case 5:
+						System.out.println("Volviendo al menu principal.");
+						break;
+					default:
+						System.out.println("Opcion invalida. Intentelo Nuevamente");
+						
+					}
+				}
+				
 		
 				
+				
+				
 	}
+
+
+
+
+
+private static void cambiarContraseña() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+private static void eliminarActividad() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+private static void modificarActividad() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+private static void registrarActividad() {
+	// TODO Auto-generated method stub
+	
+}
 
 }
