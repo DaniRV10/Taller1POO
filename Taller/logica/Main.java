@@ -8,14 +8,20 @@ import java.util.Scanner;
 
 public class Main {
 	
-//Arreglos
-
-
+//Arreglos usuarios
 static String[] usuarios = new String[10];
 static String[] contraseñas = new String[10];
-
 static int contadorUsuarios = 0;
 static String usuarioActual = "";
+
+//Arreglos registros
+static String[] regUsuario = new String[300];
+static String[] regFecha = new String[300];
+static int[] regHoras = new int[300];
+static String[] regActividad = new String[300];
+static int contadorReg =0;
+
+
 
 static Scanner s = new Scanner(System.in);
 
@@ -23,11 +29,11 @@ static Scanner s = new Scanner(System.in);
 	public static void main(String[] args) throws FileNotFoundException{
 		
 		
+		//Lectura archivo usuarios
 		
 		File arch = new File("Usuarios.txt");
 		Scanner lector = new Scanner(arch);
 		
-		//Lectura archivo
 		while (lector.hasNextLine()) {
 			String linea = lector.nextLine();
 			String[] partes = linea.split(";");
@@ -39,6 +45,26 @@ static Scanner s = new Scanner(System.in);
 		}
 			lector.close();
 			
+		//Lectura archivo registros
+			
+		File archReg = new File("Registros.txt");
+		Scanner lectorReg = new Scanner(archReg);
+		
+		while (lectorReg.hasNextLine()) {
+			String linea = lectorReg.nextLine();
+			String[] partes = linea.split(";"); 
+			
+			regUsuario[contadorReg]   = partes[0];
+            regFecha[contadorReg]     = partes[1];
+            regHoras[contadorReg]     = Integer.parseInt(partes[2].trim());
+            regActividad[contadorReg] = partes[3];
+            contadorReg++;
+			
+		}	
+		lectorReg.close();
+		
+		//Print Menu inicial y control de errores
+		
 		int opcion = 0;
 		
 		while (opcion != 3){
