@@ -227,13 +227,8 @@ static Scanner s = new Scanner(System.in);
 					}
 				}
 				
-		
-				
-				
-				
+			
 	}
-
-
 
 
 
@@ -297,6 +292,61 @@ private static void guardarUsuarios() {
 
 
 
+private static void registrarActividad() {
+
+	if (contadorReg >= 300) {
+		System.out.println("Se alcanzo el limite de registros");
+		
+	}
+	
+	s.nextLine(); //limpieza nuevamente
+	
+	System.out.print("Ingrese la fecha (DD/MM/AAAA)");
+	String fecha = s.nextLine();
+			
+	//Validar horas 
+	
+	int horas = 0;
+	boolean horasValidas = false;
+	
+	while (!horasValidas) {	
+		System.out.print("Ingrese horas: ");
+		try {
+			horas = Integer.valueOf(s.nextLine());
+			if (horas > 0) {
+				horasValidas = true;
+			} else {
+				System.out.println("Las horas deben ser positivas. Intentelo nuevamente.");
+			}
+			
+		}catch (Exception e) {
+			System.out.println("Porfavor ingrese un numero. Intentelo Nuevamente.");
+		}
+	}
+	
+	System.out.print("Ingrese tipo de actividad: ");
+	String actividad = s.nextLine();
+	
+	regUsuario[contadorReg] = usuarioActual;
+	regFecha[contadorReg] = fecha;
+	regHoras[contadorReg] = horas;
+	regActividad[contadorReg] = actividad;
+	contadorReg++;
+	
+	guardarRegistros();
+	System.out.println("Actividad registrada!");
+	
+}
+
+
+
+private static void guardarRegistros() {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
 private static void verActividades() {
 	// TODO Auto-generated method stub
 	
@@ -343,9 +393,5 @@ private static void modificarActividad() {
 
 
 
-private static void registrarActividad() {
-	// TODO Auto-generated method stub
-	
-}
 
 }
