@@ -102,16 +102,60 @@ static Scanner s = new Scanner(System.in);
 
 	
 
-	
+	//MENU ANALISIS
 	
 	private static void menuAnalisis() {
 		
+		int opcion = 0;
+		while (opcion != 5) {
+			System.out.println("Bienvenido al menu de analisis:");
+			System.out.println();
+			System.out.println("Que deseas realizar?");
+			System.out.println("1) Actividad mas realizada");
+			System.out.println("2) Actividad mas realizada por cada ususario");
+			System.out.println("3) Usuario con mayor procastinacion");
+			System.out.println("4) Ver todas las actividades");
+			System.out.println("5) Salir");
+			
+			try {
+				opcion = s.nextInt();
+				
+				switch (opcion) {
+				
+				case 1:
+					actMasRealizada();
+					break;
+				case 2:
+					actMasRealizadaxUsuario();
+					break;
+				case 3:
+					usuarioMayorProcastinacion();
+					break;
+				case 4: 
+					verActividades();
+					break;
+				case 5:
+					System.out.println("Volviendo al menu principal.");
+					break;
+				default:
+					System.out.println("Opcion invalida. Intentelo Nuevamente");
+				
+				}
+				 
+			} catch (Exception e) {
+				System.out.println("Porfavor ingrese un numero");
+				s.nextLine();
+			}
+		}	
 	}
 
 
 
 
-// MENU USUARIOS
+
+
+
+	// MENU USUARIOS
 	private static void menuUsuarios() {
 		
 		//Validacion
@@ -251,6 +295,33 @@ private static void guardarUsuarios() {
 }
 
 
+
+
+private static void verActividades() {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
+private static void usuarioMayorProcastinacion() {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
+private static void actMasRealizadaxUsuario() {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
+private static void actMasRealizada() {
+	// TODO Auto-generated method stub
+	
+}
 
 
 
