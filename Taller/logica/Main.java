@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class Main {
 	
+//Carlos Alberto Montenegro Pérez 22.154.893-0 ICCI
+// Daniel Alexanders Robles Valdenegro 20.738.244-2 ICCI
+	
 //Arreglos usuarios
 static String[] usuarios = new String[10];
 static String[] contraseñas = new String[10];
@@ -341,8 +344,28 @@ private static void registrarActividad() {
 
 
 private static void guardarRegistros() {
-	// TODO Auto-generated method stub
-	
+try {
+		
+		FileWriter fw = new FileWriter("Registros.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+		
+        for (int i = 0; i < contadorReg; i++) {
+            
+            String linea = regUsuario[i] + ";" + regFecha[i] + ";" + regHoras[i] + ";" + regActividad[i];
+            bw.write(linea);
+            
+            if (i < contadorReg - 1) {
+                bw.newLine();
+            }
+        }
+        bw.close();
+        fw.close();
+		
+		
+		
+	}catch (Exception e) {
+		System.out.println("Error al escribir en el archivo");
+	}	
 }
 
 
