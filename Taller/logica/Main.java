@@ -408,7 +408,76 @@ private static void eliminarActividad() {
 
 
 private static void modificarActividad() {
-		// TODO Auto-generated method stub
+
+		System.out.println("Tus actividades");
+		int contador = 1; // contador para mostrarles todas las actividades 
+		int[] lugarActividades = new int[300];
+		
+		System.out.println("Cual actividad deseas modificar?");
+		System.out.println("0) Regresar.");
+		for (int i = 0; i < contadorReg; i++) {
+			if (regUsuario[i].equals(usuarioActual)) {
+				System.out.println(contador + ") "+ regUsuario[i] + ";"+ regFecha[i] + ";"+ regHoras[i] + ";"+ regActividad[i]);
+				lugarActividades[contador] = i;
+				contador++;
+			}
+		}
+		boolean flag = true;
+		while(flag) {
+			try {
+				System.out.print(">");
+				int opcion = s.nextInt();
+				s.nextLine(); // Limpiar buffer
+				System.out.println();
+				if (opcion == 0) {
+					return;
+				}else if (opcion < contador) {
+					flag= false;
+					int iReal = lugarActividades[opcion]; // Aqui tenemos la posicio  donde se encuentra realmente en registros la actividad
+					System.out.println("0) Regresar.");
+					System.out.println("1) Fecha");
+					System.out.println("2) Duracion");
+					System.out.println("3) Tipo de actividad");
+					System.out.print(">");
+					int modificar = s.nextInt();
+					s.nextLine(); // Limpiar buffer
+					switch(modificar) {
+						case 0:
+							return;
+						case 1:
+							System.out.print("Ingrese nueva fecha (DD/MM/AAAA): ");
+							regFecha[iReal] = s.nextLine();
+							break;
+						case 2:
+							System.out.print("Ingrese nueva duración (horas): ");
+							regHoras[iReal] = s.nextInt();
+	                        s.nextLine();
+	                        break;
+	                    case 3:
+	                        System.out.print("Ingrese nuevo tipo de actividad: ");
+	                        regActividad[iReal] = s.nextLine();
+	                        break;
+	                    default:
+	                        System.out.println("Opción no válida.");
+	                        continue;
+					}
+					
+				}else {
+					System.out.println("Porfavor ingrese una accion valida");
+				}
+				
+			}catch (Exception e) {
+				
+				System.out.println("Porfavor ingrese un numero");
+				System.out.println("Cual actividad deseas modificar?");
+				s.nextLine();//Limpiar el buffer
+			}
+		}
+		
+		System.out.println("Modificacion realizada con exito");
+		guardarRegistros();
+		
+		
 		
 	}
 
