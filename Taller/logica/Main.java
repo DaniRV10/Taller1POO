@@ -350,12 +350,15 @@ try {
         BufferedWriter bw = new BufferedWriter(fw);
 		
         for (int i = 0; i < contadorReg; i++) {
+        	if (regUsuario[i] != null) {
+        		
+        		String linea = regUsuario[i] + ";" + regFecha[i] + ";" + regHoras[i] + ";" + regActividad[i];
+        		bw.write(linea);
+        		
+        		if (i < contadorReg - 1) {
+        			bw.newLine();
+        	}
             
-            String linea = regUsuario[i] + ";" + regFecha[i] + ";" + regHoras[i] + ";" + regActividad[i];
-            bw.write(linea);
-            
-            if (i < contadorReg - 1) {
-                bw.newLine();
             }
         }
         bw.close();
@@ -399,10 +402,59 @@ private static void actMasRealizada() {
 
 
 private static void eliminarActividad() {
-		// TODO Auto-generated method stub
-		
-	}
 
+	//arreglo de indices
+	int[] indices = new int[300]; //max 300 actividades
+	int actividadesPropias = 0; // Actividades del usuario actual
+
+	for (int i = 0; i < contadorReg; i++){
+		if (regUsuario != null && regUsuario[i].equals(usuarioActual)) {
+			indices[actividadesPropias] = i;
+			actividadesPropias++;
+			
+		}
+	}
+	if (actividadesPropias == 0){
+		System.out.println("No tienes actividades.");
+		return;	
+	}
+	
+	System.out.println("Que actividad quieres eliminar?");
+	System.out.println("0) Regresar");
+	
+	for (int i = 0; i< actividadesPropias; i++) {
+		int aux = indices[i]; 
+		System.out.println((i+1)+ ") " + regUsuario[aux] + ";"+ regFecha[aux] + ";" + regHoras[aux] + ";" + regActividad[aux]);
+	}
+	System.out.print("> ");
+	
+	int opcion = 0;
+	try {
+		opcion = s.nextInt();
+	} catch (Exception e) {
+		System.out.println("Porfavor ingrese un numero");
+		s.nextLine();
+		return;
+	}
+	
+	if (opcion == 0) 
+		return;
+	
+	if (opcion < 1 || opcion > actividadesPropias) {
+		System.out.println("Opcion invalida");
+		return;
+	}
+	
+	int indiceReaal = indices[opcion -1];
+	
+	regUsuario[indiceReaal] =null;
+	regFecha[indiceReaal] =null;
+	regHoras[indiceReaal] = 0;
+	regActividad[indiceReaal] =null;
+
+	guardarRegistros();
+	System.out.println("Actividad eliminada!");
+	}
 
 
 
