@@ -304,7 +304,7 @@ private static void registrarActividad() {
 	
 	s.nextLine(); //limpieza nuevamente
 	
-	System.out.print("Ingrese la fecha (DD/MM/AAAA)");
+	System.out.print("Ingrese la fecha (DD/MM/AAAA): ");
 	String fecha = s.nextLine();
 			
 	//Validar horas 
@@ -406,6 +406,8 @@ private static void actMasRealizadaxUsuario() {
 		
 		for(int j= 0;j<contadorReg;j++) {
 			if (regUsuario[j].equals(usuario)) {
+				
+				//Variables para trabajar con las actividades y sus respectivas horas
 				String actividadActual = regActividad[j].toLowerCase().trim();
 				int horaActual = regHoras[j];
 				
@@ -456,7 +458,55 @@ private static void actMasRealizadaxUsuario() {
 
 
 private static void actMasRealizada() {
-	// TODO Auto-generated method stub
+	System.out.println();
+	
+	// Variables para obtener todas las actividades y sus horas
+	String[] nombresActividades = new String[300];
+	int[] horasActividades = new int[300];
+	int contadorActividades = 0;
+	
+	for(int i=0;i<contadorReg;i++) {
+		
+		//Variables para trabajar con las actividades y sus respectivas horas
+		String actividadActual = regActividad[i].toLowerCase().trim();
+		int horaActual = regHoras[i];
+		
+		boolean encontrada = false;
+		
+		//Recorre las actividades ya encontradas para sumarle las horas si ya esta encontrada
+		for(int j=0;j<contadorActividades;j++) {
+			if (nombresActividades[j].equals(actividadActual)) {
+				horasActividades[j] += horaActual;
+				encontrada = true;
+				break;
+			}
+		}
+		//si es la primera vez que aparece la actividad se agrega a los nombres actividades
+		if(!encontrada) {
+			nombresActividades[contadorActividades] = actividadActual;
+			horasActividades[contadorActividades] = horaActual;
+			contadorActividades++;
+		}
+		
+	}
+	
+	if(contadorActividades > 0) {
+		//auxiliares para saber que actividad es la de mayor horas
+		int maxHoras = 0; 
+		String actividadGanadora = ""; 
+		
+		for(int k=0; k<contadorActividades; k++) {
+			if(horasActividades[k]> maxHoras) {
+				maxHoras = horasActividades[k];
+				actividadGanadora = nombresActividades[k];
+			}
+		}
+		
+		System.out.println("La actividad mayor realizada es "+ actividadGanadora + " -> con "+ maxHoras + " horas registradas");
+		
+	}else {System.out.println("No se encontraron Actividades en los registros");}
+	
+	
 	
 }
 
