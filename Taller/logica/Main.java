@@ -238,7 +238,7 @@ static Scanner s = new Scanner(System.in);
 private static void cambiarContraseña(Scanner s, String usuario) {
 	
 	
-	s.nextLine(); // <-- LIMPIEZA: Se come el "\n" de la opción 4
+	s.nextLine(); // LIMPIEZA: Se come el "\n" de la opción 4 al ingresar a cambiar contraseña en el menu
 	// Ingreso por consola la nueva contraseña
 	System.out.print("Ingrese su nueva contraseña: ");
 	String newpass = s.nextLine();
@@ -342,10 +342,13 @@ private static void registrarActividad() {
 }
 
 
-
+//Funcion para guardar las actualizacion de los registros 
 private static void guardarRegistros() {
-try {
-		
+	
+	
+	//En donde se va guardando nuevamente todos los registros en el arhcivo Registros.txt
+	try {
+	
 		FileWriter fw = new FileWriter("Registros.txt");
         BufferedWriter bw = new BufferedWriter(fw);
 		
@@ -375,9 +378,10 @@ try {
 
 private static void verActividades() {
 	
-	//Funcion para mostrar todas las actividades de REgistros.txt
+	//Funcion para mostrar todas las actividades de Registros.txt
 	System.out.println("----------Mostrando todas las actividades--------------");
 	
+	//Recorre todos los registros guardados
 	for(int i = 0; i<contadorReg ; i++) {
 		System.out.println("El usuario "+ regUsuario[i] + " realizo "+ regActividad[i] + " durante " + regHoras[i] +" horas el dia " + regFecha[i]);
 	}
@@ -427,10 +431,12 @@ private static void actMasRealizadaxUsuario() {
 	System.out.println("Actividades mas realizadas por cada usuario: ");
 	
 	for(int i = 0;i<contadorUsuarios;i++) {
+		
+		//Variables utilizadas para saber que usuario se esta comparando y para guardar sus actividades y sus respectivas horas
 		String usuario = usuarios[i];
 		String[] nombresActividades = new String[300];
 		int[] horasActividades = new int[300];
-		int contadorActividades = 0; //Contador para ir iterando despues por las actividades ya vista
+		int contadorActividades = 0; //Contador para ir iterando despues por las actividades ya vistas
 		
 		for(int j= 0;j<contadorReg;j++) {
 			if (regUsuario[j].equals(usuario)) {
