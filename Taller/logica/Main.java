@@ -374,7 +374,14 @@ try {
 
 
 private static void verActividades() {
-	// TODO Auto-generated method stub
+	
+	//Funcion para mostrar todas las actividades de REgistros.txt
+	System.out.println("----------Mostrando todas las actividades--------------");
+	
+	for(int i = 0; i<contadorReg ; i++) {
+		System.out.println("El usuario "+ regUsuario[i] + " realizo "+ regActividad[i] + " durante " + regHoras[i] +" horas el dia " + regFecha[i]);
+	}
+	System.out.println("-------------------------------------------------------");
 	
 }
 
@@ -388,7 +395,61 @@ private static void usuarioMayorProcastinacion() {
 
 
 private static void actMasRealizadaxUsuario() {
-	// TODO Auto-generated method stub
+	
+	System.out.println("Actividades mas realizadas por cada usuario: ");
+	
+	for(int i = 0;i<contadorUsuarios;i++) {
+		String usuario = usuarios[i];
+		String[] nombresActividades = new String[300];
+		int[] horasActividades = new int[300];
+		int contadorActividades = 0; //Contador para ir iterando despues por las actividades ya vista
+		
+		for(int j= 0;j<contadorReg;j++) {
+			if (regUsuario[j].equals(usuario)) {
+				String actividadActual = regActividad[j].toLowerCase().trim();
+				int horaActual = regHoras[j];
+				
+				boolean encontrada = false;
+				//Recorre las actividades ya encontradas para sumarle las horas si ya esta encontrada
+				for (int k = 0; k<contadorActividades ;k++) {
+					if (nombresActividades[k].equals(actividadActual)) {
+						horasActividades[k] += horaActual;
+						encontrada = true;
+						break;
+					}
+				}
+				//si es la primera vez que aparece la actividad se agrega a los nombres actividades
+				if(!encontrada) {
+					nombresActividades[contadorActividades] = actividadActual;
+					horasActividades[contadorActividades] = horaActual;
+					contadorActividades++;
+				}
+				
+			}
+		}
+		
+		
+		//Luego de revisar todos los registros se comparan entre las actividades del usuario por su actividad mas realizada
+		if(contadorActividades > 0) {
+			//auxiliares para saber que actividad es la de mayor horas
+			int maxHoras = 0; 
+			String actividadGanadora = ""; 
+			
+			for(int m=0; m<contadorActividades;m++) {
+				if(horasActividades[m]> maxHoras) {
+					maxHoras = horasActividades[m];
+					actividadGanadora = nombresActividades[m];
+				}
+			}
+			
+			System.out.println("* "+ usuario + " -> "+ actividadGanadora + " -> con "+ maxHoras + " horas registradas");
+			
+		}else {System.out.println("El usuario "+ usuario +" no registra actividades");}
+		
+		
+	}
+	
+	
 	
 }
 

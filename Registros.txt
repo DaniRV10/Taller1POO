@@ -44,7 +44,7 @@ Martin;15/03/2026;6;ser therian
 Catalina;15/03/2026;4;ser Batman por las noches
 Estefania;15/03/2026;4;investigar las cutiemarks
 Martin;16/03/2026;2;estudiar
-Catalina;16/03/2026;1;programar
+Catalina;16/03/2026;4;programar
 Estefania;16/03/2026;3;Ver mlp
 Martin;17/03/2026;3;ser therian
 Catalina;17/03/2026;5;ser Batman por las noches
