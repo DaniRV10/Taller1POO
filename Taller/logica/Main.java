@@ -388,7 +388,35 @@ private static void verActividades() {
 
 
 private static void usuarioMayorProcastinacion() {
-	// TODO Auto-generated method stub
+	
+	// Variable para guardar las horas por usuario
+	int[] horasxUsuario = new int[10];
+	
+	for(int i=0; i< contadorUsuarios; i++) {
+		String usuario = usuarios[i];
+		
+		for(int j = 0;j<contadorReg;j++) {
+			if(regUsuario[j].equals(usuario)) {
+				
+				horasxUsuario[i] += regHoras[j];
+			}
+		}
+	
+	}
+	
+	//Variable para ver quien es el usuario mayor procastinador
+	String usuarioProcastinacion = "";
+	int maxHoras = 0;
+	 // Se verifica por usuario quien es el que consiguio tener mas horas y se guardan en las variables
+	for(int j=0;j<contadorUsuarios;j++) {  
+		if(horasxUsuario[j]>maxHoras) {
+			usuarioProcastinacion = usuarios[j];
+			maxHoras = horasxUsuario[j];
+		}
+	}
+	
+	System.out.println("El usuario "+usuarioProcastinacion+ " es el mayor procastinador/a con "+maxHoras+" horas invertidas");
+	
 	
 }
 
