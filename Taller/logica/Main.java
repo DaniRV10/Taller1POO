@@ -162,9 +162,10 @@ static Scanner s = new Scanner(System.in);
 	private static void menuUsuarios() {
 		
 		//Validacion
+		int intentos = 3;
 		boolean encontrado = false;
 				do {
-					
+				
 					System.out.print("Usuario: ");
 					String usuario = s.next();
 					System.out.print("Contraseña: ");
@@ -185,6 +186,15 @@ static Scanner s = new Scanner(System.in);
 						
 					} else {
 						System.out.println("Credenciales incorrectas.");
+						intentos--;
+						if(intentos == 0) {
+							System.out.println("Se acabaron los intentos para ingresar al menu Usuarios");
+							System.out.println("Saliendo del menu Usuarios");
+							return;
+							
+						}else {System.out.println("Quedan "+intentos+" intentos");}
+						
+						
 					}
 				}while(encontrado == false);
 				
@@ -383,7 +393,9 @@ private static void verActividades() {
 	
 	//Recorre todos los registros guardados
 	for(int i = 0; i<contadorReg ; i++) {
-		System.out.println("El usuario "+ regUsuario[i] + " realizo "+ regActividad[i] + " durante " + regHoras[i] +" horas el dia " + regFecha[i]);
+		if(regUsuario[i] != null) {  //En caso de que un registro haya sido eliminado y haya quedado en null que no se imprima
+			System.out.println("El usuario "+ regUsuario[i] + " realizo "+ regActividad[i] + " durante " + regHoras[i] +" horas el dia " + regFecha[i]);
+		}
 	}
 	System.out.println("-------------------------------------------------------");
 	
@@ -607,29 +619,30 @@ private static void eliminarActividad() {
 private static void modificarActividad() {
 
 		System.out.println("Tus actividades");
-		int contador = 1; // contador para mostrarles todas las actividades 
+		
 		int[] lugarActividades = new int[300];
 		
 		System.out.println("Cual actividad deseas modificar?");
-		System.out.println("0) Regresar.");
-		for (int i = 0; i < contadorReg; i++) {
-			if (regUsuario[i].equals(usuarioActual)) {
-				System.out.println(contador + ") "+ regUsuario[i] + ";"+ regFecha[i] + ";"+ regHoras[i] + ";"+ regActividad[i]);
-				lugarActividades[contador] = i;
-				contador++;
-			}
-		}
+		
 		boolean flag = true;
 		while(flag) {
 			try {
+				System.out.println("0) Regresar.");
+				int contador = 1; // contador para mostrarles todas las actividades 
+				for (int i = 0; i < contadorReg; i++) {
+					if (regUsuario[i].equals(usuarioActual)) {
+						System.out.println(contador + ") "+ regUsuario[i] + ";"+ regFecha[i] + ";"+ regHoras[i] + ";"+ regActividad[i]);
+						lugarActividades[contador] = i;
+						contador++;
+					}
+				}
 				System.out.print(">");
 				int opcion = s.nextInt();
 				s.nextLine(); // Limpiar buffer
 				System.out.println();
 				if (opcion == 0) {
 					return;
-				}else if (opcion < contador) {
-					flag= false;
+				}else if (opcion < contador && opcion >= 1) { //Asegurar que la opcion no sea negativo
 					int iReal = lugarActividades[opcion]; // Aqui tenemos la posicio  donde se encuentra realmente en registros la actividad
 					System.out.println("0) Regresar.");
 					System.out.println("1) Fecha");
@@ -644,15 +657,31 @@ private static void modificarActividad() {
 						case 1:
 							System.out.print("Ingrese nueva fecha (DD/MM/AAAA): ");
 							regFecha[iReal] = s.nextLine();
+							flag= false;
 							break;
 						case 2:
-							System.out.print("Ingrese nueva duración (horas): ");
-							regHoras[iReal] = s.nextInt();
-	                        s.nextLine();
+							
+							//regHoras[iReal] = s.nextInt();
+							boolean horaValida = false;
+							while(!horaValida) {
+								System.out.print("Ingrese nueva duración (horas): ");
+								int nuevaHora = s.nextInt();
+								s.nextLine(); // Limpiar buffer
+
+					            if (nuevaHora >= 0) { // Validación de no negativo
+					                regHoras[iReal] = nuevaHora;
+					                horaValida = true;
+					            } else {
+					                System.out.println("Error: Las horas no pueden ser negativas.");
+					            }
+								
+							}
+	                        flag= false;
 	                        break;
 	                    case 3:
 	                        System.out.print("Ingrese nuevo tipo de actividad: ");
 	                        regActividad[iReal] = s.nextLine();
+	                        flag= false;
 	                        break;
 	                    default:
 	                        System.out.println("Opción no válida.");
