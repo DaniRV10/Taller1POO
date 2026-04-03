@@ -308,7 +308,8 @@ private static void guardarUsuarios() {
 private static void registrarActividad() {
 
 	if (contadorReg >= 300) {
-		System.out.println("Se alcanzo el limite de registros");
+		System.out.println("Se alcanzo el limite de registros"); 
+		return;
 		
 	}
 	
@@ -412,7 +413,7 @@ private static void usuarioMayorProcastinacion() {
 		String usuario = usuarios[i];
 		
 		for(int j = 0;j<contadorReg;j++) {
-			if(regUsuario[j].equals(usuario)) {
+			if(regUsuario[j] != null && regUsuario[j].equals(usuario)) {
 				
 				horasxUsuario[i] += regHoras[j];
 			}
@@ -451,7 +452,7 @@ private static void actMasRealizadaxUsuario() {
 		int contadorActividades = 0; //Contador para ir iterando despues por las actividades ya vistas
 		
 		for(int j= 0;j<contadorReg;j++) {
-			if (regUsuario[j].equals(usuario)) {
+			if (regUsuario[j] != null && regUsuario[j].equals(usuario)) {
 				
 				//Variables para trabajar con las actividades y sus respectivas horas
 				String actividadActual = regActividad[j].toLowerCase().trim();
@@ -513,28 +514,33 @@ private static void actMasRealizada() {
 	
 	for(int i=0;i<contadorReg;i++) {
 		
-		//Variables para trabajar con las actividades y sus respectivas horas
-		String actividadActual = regActividad[i].toLowerCase().trim();
-		int horaActual = regHoras[i];
 		
 		boolean encontrada = false;
-		
-		//Recorre las actividades ya encontradas para sumarle las horas si ya esta encontrada
-		for(int j=0;j<contadorActividades;j++) {
-			if (nombresActividades[j].equals(actividadActual)) {
-				horasActividades[j] += horaActual;
-				encontrada = true;
-				break;
-			}
-		}
-		//si es la primera vez que aparece la actividad se agrega a los nombres actividades
-		if(!encontrada) {
-			nombresActividades[contadorActividades] = actividadActual;
-			horasActividades[contadorActividades] = horaActual;
-			contadorActividades++;
-		}
-		
+	    if(regActividad[i] != null) {
+	    	//Variables para trabajar con las actividades y sus respectivas horas
+	    	String actividadActual = regActividad[i].toLowerCase().trim();
+	    	int horaActual = regHoras[i];
+	    	
+	    	//Recorre las actividades ya encontradas para sumarle las horas si ya esta encontrada
+	    	for(int j=0;j<contadorActividades;j++) {
+	    		if (nombresActividades[j].equals(actividadActual)) {
+	    			horasActividades[j] += horaActual;
+	    			encontrada = true;
+	    			break;
+	    		}
+	    	}
+	    	//si es la primera vez que aparece la actividad se agrega a los nombres actividades
+	    	if(!encontrada) {
+	    		nombresActividades[contadorActividades] = actividadActual;
+	    		horasActividades[contadorActividades] = horaActual;
+	    		contadorActividades++;
+	    	}
+	    	
+	    }
+	    	
 	}
+
+		
 	
 	if(contadorActividades > 0) {
 		//auxiliares para saber que actividad es la de mayor horas
@@ -565,7 +571,7 @@ private static void eliminarActividad() {
 	int actividadesPropias = 0; // Actividades del usuario actual
 
 	for (int i = 0; i < contadorReg; i++){
-		if (regUsuario != null && regUsuario[i].equals(usuarioActual)) {
+		if (regUsuario[i] != null && regUsuario[i].equals(usuarioActual)) {
 			indices[actividadesPropias] = i;
 			actividadesPropias++;
 			
@@ -630,7 +636,7 @@ private static void modificarActividad() {
 				System.out.println("0) Regresar.");
 				int contador = 1; // contador para mostrarles todas las actividades 
 				for (int i = 0; i < contadorReg; i++) {
-					if (regUsuario[i].equals(usuarioActual)) {
+					if (regUsuario[i] != null && regUsuario[i].equals(usuarioActual)) {
 						System.out.println(contador + ") "+ regUsuario[i] + ";"+ regFecha[i] + ";"+ regHoras[i] + ";"+ regActividad[i]);
 						lugarActividades[contador] = i;
 						contador++;
