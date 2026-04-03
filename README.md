@@ -28,7 +28,7 @@ El software esta desarrollado con un puro archivo llamado Main.java pero a su ve
 
 Para ejecutar el programa se debe tener instalado un entorno como **Eclipse** o **Java JDK 21**.
 
-En caso de hacerlo en un entorno que no sea el de eclipse como powershell primero se compila.
+En caso de hacerlo en un entorno que no sea el de eclipse como powershell primero asegurarse de estar en la carpeta Taller1POO y se compila.
 
 ```bash
 javac -d bin Taller/logica/Main.java
